@@ -211,6 +211,7 @@ dependencies {
     implementation project(':reactnativenotifications')
     implementation project(":reactnativekeyboardinput")
     implementation project(':@react-native-community_viewpager')
+    apply from: "$rootDir/../node_modules/BlackBerry-Dynamics-for-React-Native-Base/android/gd.gradle"
     implementation fileTree(dir: "libs", include: ["*.jar"])
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
@@ -242,6 +243,9 @@ dependencies {
     implementation "com.google.code.gson:gson:2.8.5"
     implementation "com.github.bumptech.glide:glide:4.9.0"
     annotationProcessor "com.github.bumptech.glide:compiler:4.9.0"
+
+    implementation 'com.blackberry.blackberrydynamics:android_handheld_platform:+'
+    implementation 'com.blackberry.blackberrydynamics:android_handheld_backup_support:+'
 }
 
 // Run this once to be able to run the application with BUCK
