@@ -3,6 +3,8 @@ import DeviceInfo from 'react-native-device-info';
 import { settings as RocketChatSettings } from '@rocket.chat/sdk';
 import RocketChat from '../lib/rocketchat';
 
+import { fetch } from 'BlackBerry-Dynamics-for-React-Native-Networking';
+
 // this form is required by Rocket.Chat's parser in "app/statistics/server/lib/UAParserCustom.js"
 export const headers = {
 	'User-Agent': `RC Mobile; ${ Platform.OS } ${ DeviceInfo.getSystemVersion() }; v${ DeviceInfo.getVersion() } (${ DeviceInfo.getBuildNumber() })`

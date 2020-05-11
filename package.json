@@ -39,6 +39,7 @@
     "base-64": "0.1.0",
     "bugsnag-react-native": "2.23.7",
     "BlackBerry-Dynamics-for-React-Native-Base": "file:../BlackBerry-Dynamics-React-Native-SDK/modules/BlackBerry-Dynamics-for-React-Native-Base",
+    "BlackBerry-Dynamics-for-React-Native-Networking": "file:../BlackBerry-Dynamics-React-Native-SDK/modules/BlackBerry-Dynamics-for-React-Native-Networking",
     "commonmark": "git+https://github.com/RocketChat/commonmark.js.git",
     "commonmark-react-renderer": "git+https://github.com/RocketChat/commonmark-react-renderer.git",
     "deep-equal": "2.0.3",
