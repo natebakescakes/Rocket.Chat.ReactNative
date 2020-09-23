@@ -122,11 +122,11 @@ class AuthenticationWebView extends React.PureComponent {
 		}
 
 		if (authType === 'oauth') {
-			if (this.oauthRedirectRegex.test(url)) {
-				const parts = url.split('#');
-				const credentials = JSON.parse(parts[1]);
-				this.login({ oauth: { ...credentials } });
-			}
+			// if (this.oauthRedirectRegex.test(url)) {
+			// 	const parts = url.split('#');
+			// 	const credentials = JSON.parse(parts[1]);
+			// 	this.login({ oauth: { ...credentials } });
+			// }
 		}
 
 		if (authType === 'iframe') {
@@ -147,17 +147,34 @@ class AuthenticationWebView extends React.PureComponent {
 		}
 	}
 
+	onLoadEnd = () => {
+		const { route } = this.props;
+		const { url } = route.params;
+		fetch(url, { method: 'POST' }).then(response => response.text()).then((responseText) => {
+			const regex = /\{.*\}/g;
+			const cred = JSON.parse(regex.exec(responseText)[0]);
+			this.login({
+				oauth: {
+					credentialToken: cred.credentialToken,
+					credentialSecret: cred.credentialSecret
+				}
+			});
+		});
+
+		this.setState({ loading: false });
+	}
+
 	render() {
 		const { loading } = this.state;
 		const { route, theme } = this.props;
-		const { url, authType } = route.params;
+		const { authType } = route.params;
 		const isIframe = authType === 'iframe';
 
 		return (
 			<>
 				<StatusBar theme={theme} />
 				<WebView
-					source={{ uri: url }}
+					source={{ html: '<html><body><h1>STATIC LOADING MESSAGE</h1></body></html>' }}
 					userAgent={userAgent}
 					// https://github.com/react-native-community/react-native-webview/issues/24#issuecomment-540130141
 					onMessage={({ nativeEvent }) => this.onNavigationStateChange(nativeEvent)}
@@ -166,9 +183,7 @@ class AuthenticationWebView extends React.PureComponent {
 					onLoadStart={() => {
 						this.setState({ loading: true });
 					}}
-					onLoadEnd={() => {
-						this.setState({ loading: false });
-					}}
+					onLoadEnd={this.onLoadEnd}
 				/>
 				{ loading ? <ActivityIndicator size='large' theme={theme} absolute /> : null }
 			</>

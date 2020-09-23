@@ -3087,6 +3087,9 @@
     react-native-rename "2.4.1"
     shelljs "^0.7.0"
 
+BlackBerry-Dynamics-for-React-Native-Networking@../BlackBerry-Dynamics-React-Native-SDK/modules/BlackBerry-Dynamics-for-React-Native-Networking:
+  version "1.0.0"
+
 abab@^2.0.0:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.3.tgz#623e2075e02eb2d3f2475e49f99c91846467907a"

@@ -1,7 +1,12 @@
 import 'react-native-gesture-handler';
 import 'react-native-console-time-polyfill';
 import { AppRegistry } from 'react-native';
+import { fetch, XMLHttpRequest, Blob } from 'BlackBerry-Dynamics-for-React-Native-Networking';
 import { name as appName, share as shareName } from './app.json';
+
+global.fetch = fetch;
+global.XMLHttpRequest = XMLHttpRequest;
+global.Blob = Blob;
 
 if (__DEV__) {
 	require('./app/ReactotronConfig');

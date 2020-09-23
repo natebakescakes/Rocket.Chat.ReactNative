@@ -18,6 +18,7 @@ import com.facebook.soloader.SoLoader;
 import java.lang.reflect.InvocationTargetException;
 
 import chat.rocket.reactnative.generated.BasePackageList;
+import chat.rocket.reactnative.proxy.TunnelProxy;
 
 import org.unimodules.adapters.react.ModuleRegistryAdapter;
 import org.unimodules.adapters.react.ReactModuleRegistryProvider;
@@ -56,6 +57,7 @@ public class MainApplication extends Application implements ReactApplication, IN
       packages.add(new WatermelonDBPackage());
       packages.add(new RNCViewPagerPackage());
       // packages.add(new ModuleRegistryAdapter(mModuleRegistryProvider));
+      packages.add(new CustomWebSocketPackage());
       List<ReactPackage> unimodules = Arrays.<ReactPackage>asList(
         new ModuleRegistryAdapter(mModuleRegistryProvider)
       );
@@ -83,8 +85,9 @@ public class MainApplication extends Application implements ReactApplication, IN
   public void onCreate() {
     super.onCreate();
 
-		BBDLifeCycle.getInstance().initialize(this);
+    BBDLifeCycle.getInstance().initialize(this);
 
+    new TunnelProxy()
     SoLoader.init(this, /* native exopackage */ false);
   }
 
