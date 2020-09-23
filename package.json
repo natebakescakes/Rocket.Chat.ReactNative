@@ -41,6 +41,7 @@
     "@rocket.chat/react-native-fast-image": "^8.1.5",
     "@rocket.chat/sdk": "djorkaeffalexandre/Rocket.Chat.js.SDK#test.fix-ddp",
     "@rocket.chat/ui-kit": "0.13.0",
+    "BlackBerry-Dynamics-for-React-Native-Base": "file:../BlackBerry-Dynamics-React-Native-SDK/modules/BlackBerry-Dynamics-for-React-Native-Base",
     "bugsnag-react-native": "2.23.10",
     "commonmark": "git+https://github.com/RocketChat/commonmark.js.git",
     "commonmark-react-renderer": "git+https://github.com/RocketChat/commonmark-react-renderer.git",

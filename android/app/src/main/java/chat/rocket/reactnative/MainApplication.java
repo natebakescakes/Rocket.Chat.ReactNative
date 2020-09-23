@@ -1,5 +1,7 @@
 package chat.rocket.reactnative;
 
+import com.blackberry.bbd.reactnative.core.BBDLifeCycle;
+
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
@@ -80,6 +82,9 @@ public class MainApplication extends Application implements ReactApplication, IN
   @Override
   public void onCreate() {
     super.onCreate();
+
+		BBDLifeCycle.getInstance().initialize(this);
+
     SoLoader.init(this, /* native exopackage */ false);
   }
 

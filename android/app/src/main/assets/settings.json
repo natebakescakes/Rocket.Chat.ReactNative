@@ -1,0 +1,11 @@
+{
+    "GDLibraryMode": "GDEnterprise",
+    "GDApplicationID": "com.csg.cs.csrocketchat.apac.android.pta",
+    "GDApplicationVersion": "1.0.0.2",
+    "GDConsoleLogger": [
+        "GDFilterErrors_",
+        "GDFilterWarnings_",
+        "GDFilterInfo_",
+        "GDFilterDetailed_"
+    ]
+}

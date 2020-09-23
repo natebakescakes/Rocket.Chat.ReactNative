@@ -49,6 +49,11 @@ allprojects {
 
         maven { url 'https://maven.google.com' }
         maven { url 'https://www.jitpack.io' }
+
+        maven {
+            apply from: "$rootDir/../node_modules/BlackBerry-Dynamics-for-React-Native-Base/android/helper.gradle"
+            url getBbdMavenLocation
+        }
     }
 }
 
