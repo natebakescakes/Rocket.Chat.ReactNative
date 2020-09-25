@@ -1,42 +1,38 @@
 package chat.rocket.reactnative;
 
-import com.blackberry.bbd.reactnative.core.BBDLifeCycle;
-
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
+import android.util.Log;
 
+import com.blackberry.bbd.reactnative.core.BBDLifeCycle;
 import com.facebook.react.PackageList;
-import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
-import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
-import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
-import java.lang.reflect.InvocationTargetException;
-
-import chat.rocket.reactnative.generated.BasePackageList;
-import chat.rocket.reactnative.proxy.TunnelProxy;
-
-import org.unimodules.adapters.react.ModuleRegistryAdapter;
-import org.unimodules.adapters.react.ReactModuleRegistryProvider;
-import org.unimodules.core.interfaces.SingletonModule;
-
+import com.nozbe.watermelondb.WatermelonDBPackage;
+import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
+import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 import com.wix.reactnativenotifications.RNNotificationsPackage;
 import com.wix.reactnativenotifications.core.AppLaunchHelper;
 import com.wix.reactnativenotifications.core.AppLifecycleFacade;
 import com.wix.reactnativenotifications.core.JsIOHelper;
 import com.wix.reactnativenotifications.core.notification.INotificationsApplication;
 import com.wix.reactnativenotifications.core.notification.IPushNotification;
-import com.wix.reactnativekeyboardinput.KeyboardInputPackage;
 
-import com.nozbe.watermelondb.WatermelonDBPackage;
-import com.reactnativecommunity.viewpager.RNCViewPagerPackage;
+import org.unimodules.adapters.react.ModuleRegistryAdapter;
+import org.unimodules.adapters.react.ReactModuleRegistryProvider;
 
 import java.util.Arrays;
 import java.util.List;
+
+import androidx.annotation.Nullable;
+import androidx.webkit.ProxyConfig;
+import androidx.webkit.ProxyController;
+import androidx.webkit.WebViewFeature;
+import chat.rocket.reactnative.generated.BasePackageList;
+import chat.rocket.reactnative.proxy.TunnelProxy;
 
 public class MainApplication extends Application implements ReactApplication, INotificationsApplication {
 
@@ -84,11 +80,22 @@ public class MainApplication extends Application implements ReactApplication, IN
   @Override
   public void onCreate() {
     super.onCreate();
-
     BBDLifeCycle.getInstance().initialize(this);
-
-    new TunnelProxy()
+    TunnelProxy proxy = new TunnelProxy(8082);
+    proxy.start();
+    setProxyOverride("localhost:8082");
     SoLoader.init(this, /* native exopackage */ false);
+  }
+
+  private void setProxyOverride(String proxyUrl) {
+    if (!WebViewFeature.isFeatureSupported(WebViewFeature.PROXY_OVERRIDE)) {
+      Log.d("PROXY OVERRIDE", "Not supported");
+      return;
+    }
+
+    ProxyController proxyController = ProxyController.getInstance();
+    ProxyConfig proxyConfig = new ProxyConfig.Builder().addProxyRule(proxyUrl).build();
+    proxyController.setProxyOverride(proxyConfig, Runnable::run, () -> Log.d("PROXY OVERRIDE", "Completed"));
   }
 
   @Override
